@@ -6,6 +6,7 @@ def showShip(displayName):
     # see if you can understand how and why it makes the choices it does.
     # 
     # Why pick 20 to subtract from?  Then why 21 later?
+    # Are those the correct numbers?
     # Why pick the integer division // instead of just a / ?
     print("                   ___")
     print("      ___....-----'---'-----....___")
@@ -42,7 +43,7 @@ def main():
     print("\n")
     print("Right now I can't do much of anything, can I?")
     nameTheShip = input("maybe you want to rename the ship, " + playerName)
-    if (nameTheShip.upper() == 'Y'):
+    if (nameTheShip.upper()[:1] == 'Y'):
         shipName = input("what should the name of the ship be?")
         showShip(shipName)
 
