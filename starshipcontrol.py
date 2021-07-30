@@ -35,11 +35,21 @@ def makeSomeScreenSpace(howmany):
     for x in range(howmany):
         print("\n")
 
-def boom():
-    print("         _.-^^---....,,--")
+def boom(displayName):
+    print("     _.-^^---....,,--")
     print(" _--                  --_")
     print("<                        >)")
-    print("|                         |")
+    if (len(displayName) > 0):
+        shipLine = "|"
+        for x in range(12-(len(displayName)//2)):
+            shipLine = shipLine + " "
+        shipLine = shipLine + displayName
+        for x in range(13-(len(displayName)//2)):
+            shipLine = shipLine + " "
+        shipLine= shipLine + "|"
+        print(shipLine)
+    else:
+        print("|                         |")
     print(" \._                   _./")
     print("    ```--. . , ; .--'''")
     print("          | |   |")
@@ -57,6 +67,7 @@ def main():
     print("\n")
     print("Right now I can't do much of anything, can I?")
     orders = "take command"
+    fighteraway = False
     while orders.lower() != 'quit':
         print("\n")
         orders = input("What are your orders " + playerName + " ")
@@ -65,11 +76,19 @@ def main():
             if (nameTheShip.upper()[:1] == 'Y'):
                 shipName = input("what should the name of the ship be? ")
                 showShip(shipName)
-        if orders.lower() == "self destruct":
-            boom()
+        if (orders.lower() == "self destruct" or orders.lower() == 'quit'):
+            boom(shipName)
             orders = 'quit'
         if orders.lower() == 'help':
             print("I understand orders for Help, Rename, Self Destruct and quit ")
+        if orders.lower() == 'shoot':
+            print("pew pew pew")
+        if orders.lower() == 'launch fighters':
+            if (not fighteraway):
+                print("wing commander frank has launched with his entire wing.")
+                fighteraway = True
+            else :
+                print("Frank is long gone with the fighters")
 
 
 if __name__ == "__main__":
