@@ -26,26 +26,51 @@ def showShip(displayName):
     print("          cccc'.__'---'__.'cccc ")
     print("                  ccccc")
 
-def makeSomeScreenSpace():
+def makeSomeScreenSpace(howmany):
     # this routine should be pretty easy to understand.  It basically clears out 6 lines.
     # think about how you'd make this a piece of code that could take an argument so it would
     # clear as many lines as you told it too.  What would that look like?
-    for x in range(6):
+    if (howmany == 0):
+        howmany = 6
+    for x in range(howmany):
         print("\n")
 
+def boom():
+    print("         _.-^^---....,,--")
+    print(" _--                  --_")
+    print("<                        >)")
+    print("|                         |")
+    print(" \._                   _./")
+    print("    ```--. . , ; .--'''")
+    print("          | |   |")
+    print("       .-=||  | |=-.")
+    print("       `-=#$%&%$#=-'")
+    print("          | ;  :|")
+    print(" _____.,-#%&$@%#&#~,._____")
 
 def main():
-    makeSomeScreenSpace()
-    playerName = input("I am ready to be relieved, Commander...")
+    makeSomeScreenSpace(6)
+    playerName = input("I am ready to be relieved, Commander...? ")
     playerName = "Cmdr. " + playerName
     print("Welcome to the bridge, " + playerName)
     showShip("")
     print("\n")
     print("Right now I can't do much of anything, can I?")
-    nameTheShip = input("maybe you want to rename the ship, " + playerName)
-    if (nameTheShip.upper()[:1] == 'Y'):
-        shipName = input("what should the name of the ship be?")
-        showShip(shipName)
+    orders = "take command"
+    while orders.lower() != 'quit':
+        print("\n")
+        orders = input("What are your orders " + playerName + " ")
+        if orders.lower() == "rename":
+            nameTheShip = input("maybe you want to rename the ship, " + playerName +"?")
+            if (nameTheShip.upper()[:1] == 'Y'):
+                shipName = input("what should the name of the ship be? ")
+                showShip(shipName)
+        if orders.lower() == "self destruct":
+            boom()
+            orders = 'quit'
+        if orders.lower() == 'help':
+            print("I understand orders for Help, Rename, Self Destruct and quit ")
+
 
 if __name__ == "__main__":
     main()
