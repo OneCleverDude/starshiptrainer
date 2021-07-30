@@ -1,4 +1,5 @@
 import string
+import time
 
 def showShip(displayName):
     
@@ -36,7 +37,7 @@ def makeSomeScreenSpace(howmany):
         print("\n")
 
 def boom():
-    print("         _.-^^---....,,--")
+    print("     _.-^^---....,,--")
     print(" _--                  --_")
     print("<                        >)")
     print("|                         |")
@@ -48,8 +49,30 @@ def boom():
     print("          | ;  :|")
     print(" _____.,-#%&$@%#&#~,._____")
 
+def teddy():
+    print("\n")
+    print("Quit your crying!! Here's a Teddy Bear!!!")
+    print("\n")
+    print("     ,~~.,''''`'.~~.")
+    print("    : {` .- _ -. '} ;")
+    print("     `:   O(_)O   ;'")
+    print("      ';  ._|_,  ;`")
+    print("       '`-.\_/,.'`")
+
+def countdown(t):
+
+    while t:
+        mins, secs = divmod(t, 60)
+        timer = '{:02d}'.format(secs)
+        print(timer, end="\r")
+        time.sleep(1)
+        t -= 1
+      
+    boom()
+    teddy()
+
 def main():
-    makeSomeScreenSpace(6)
+    makeSomeScreenSpace(4)
     playerName = input("I am ready to be relieved, Commander...? ")
     playerName = "Cmdr. " + playerName
     print("Welcome to the bridge, " + playerName)
@@ -57,6 +80,7 @@ def main():
     print("\n")
     print("Right now I can't do much of anything, can I?")
     orders = "take command"
+    password = '12345'
     while orders.lower() != 'quit':
         print("\n")
         orders = input("What are your orders " + playerName + " ")
@@ -66,8 +90,14 @@ def main():
                 shipName = input("what should the name of the ship be? ")
                 showShip(shipName)
         if orders.lower() == "self destruct":
-            boom()
-            orders = 'quit'
+            confirmation = input("Are you sure?")
+            if confirmation.upper()[:1] == 'Y':
+                # TODO add pw request
+                # Print("What is the Self Destruct")
+                # countdown function call
+                countdown(int(5))
+                orders = 'quit'
+
         if orders.lower() == 'help':
             print("I understand orders for Help, Rename, Self Destruct and quit ")
 
