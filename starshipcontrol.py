@@ -6,6 +6,7 @@ class Starship:
         self.shipname = shipname
         self.shields = "down"
         self.fighters = "docked"
+        self.shiptype = "galaxy class heavy cruiser"
 
     def renameShip(self, shipname):
         self.shipname = shipname
