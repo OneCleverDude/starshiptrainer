@@ -1,4 +1,5 @@
 import string
+import time
 
 class Starship:
     def __init__(self, shipname):
@@ -79,9 +80,30 @@ def transport(playerName):
         print("omg transporter accident.  You are now part pig.")
     else:
         print("You are beamed up \n")
+def teddy():
+    print("\n")
+    print("Quit your crying!! Here's a Teddy Bear!!!")
+    print("\n")
+    print("     ,~~.,''''`'.~~.")
+    print("    : {` .- _ -. '} ;")
+    print("     `:   O(_)O   ;'")
+    print("      ';  ._|_,  ;`")
+    print("       '`-.\_/,.'`")
+
+def countdown(t):
+
+    while t:
+        mins, secs = divmod(t, 60)
+        timer = '{:02d}'.format(secs)
+        print(timer, end="\r")
+        time.sleep(1)
+        t -= 1
+      
+    boom()
+    teddy()
 
 def main():
-    makeSomeScreenSpace(6)
+    makeSomeScreenSpace(4)
     playerName = input("I am ready to be relieved, Commander...? ")
     playerName = "Cmdr. " + playerName
     print("Welcome to the bridge, " + playerName)
@@ -90,9 +112,9 @@ def main():
     #
     myShip = Starship(input("what is the name of your ship? "))
     print("\n")
-    print("Right now I can't do much of anything, can I?")
     orders = "take command"
 
+    password = '12345'
     while orders.lower() != 'quit':
         print("\n")
         orders = input("What are your orders " + playerName + " ")
@@ -107,6 +129,15 @@ def main():
         if (orders.lower() == "self destruct" or orders.lower() == 'quit'):
             boom(myShip.shipname)
             orders = 'quit'
+        if orders.lower() == "self destruct":
+            confirmation = input("Are you sure?")
+            if confirmation.upper()[:1] == 'Y':
+                # TODO add pw request
+                # Print("What is the Self Destruct")
+                # countdown function call
+                countdown(int(5))
+                orders = 'quit'
+
         if orders.lower() == 'help':
             print("I understand orders for Help, Rename, Self Destruct, Beam me up, Launch Fighters, shoot and quit ")
         if orders.lower() == 'shoot':
