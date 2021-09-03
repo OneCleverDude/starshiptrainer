@@ -7,18 +7,17 @@ class Starship:
         self.shields = "down"
         self.fighters = "docked"
         self.shiptype = "galaxy class heavy cruiser"
+        self.torpedoes = 3
 
     def renameShip(self, shipname):
         self.shipname = shipname
-        print ("Ship has been renamed to " + self.shipname)
-    
+        print ("Ship has been renamed to " + self.shipname)    
     def launchFighters(self):
         if self.fighters == "docked":
             print("Launching fighters!")
             self.fighters = "launched"
         else:
             print("No fighters are docked Commander.")
-
     def showShip(self):
         # This block has a lot of the code we've looked at.  Try to 
         # see if you can understand how and why it makes the choices it does.
@@ -43,6 +42,12 @@ class Starship:
         print("        \\____.-'_.---._'-.____//  ")
         print("          cccc'.__'---'__.'cccc ")
         print("                  ccccc")
+    def launchTorpedo(self):
+        if self.torpedoes > 0:
+            print("launch torpedo!")
+            self.torpedoes = self.torpedoes -1
+        else:
+            print("You are all out of torpedoes!  Go back to starbase and get more")
 
 def makeSomeScreenSpace(howmany):
     # this routine should be pretty easy to understand.  It basically clears out 6 lines.
@@ -52,7 +57,6 @@ def makeSomeScreenSpace(howmany):
         howmany = 6
     for x in range(howmany):
         print("\n")
-
 def boom(displayName):
     print("     _.-^^---....,,--")
     print(" _--                  --_")
@@ -75,7 +79,6 @@ def boom(displayName):
     print("       `-=#$%&%$#=-'")
     print("          | ;  :|")
     print(" _____.,-#%&$@%#&#~,._____")
-
 def transport(playerName):
     if (playerName != "Cmdr. Kelly"):
         print("omg transporter accident.  You are now part pig.")
@@ -90,7 +93,6 @@ def teddy():
     print("     `:   O(_)O   ;'")
     print("      ';  ._|_,  ;`")
     print("       '`-.\_/,.'`")
-
 def countdown(t):
 
     while t:
@@ -112,6 +114,8 @@ def main():
     # This makes an object called myShip which is a instance of the Starship class above.
     #
     myShip = Starship(input("what is the name of your ship? "))
+    myShip2 = Starship(input("what is the name of your other ship? "))
+    myShip3 = Starship("Jake's Ship")
     print("\n")
     orders = "take command"
 
@@ -129,6 +133,7 @@ def main():
             transport(playerName)
         if (orders.lower() == "self destruct" or orders.lower() == 'quit'):
             boom(myShip.shipname)
+            print("whoops, blew up Jake's ship.")
             orders = 'quit'
         if orders.lower() == "self destruct":
             confirmation = input("Are you sure?")
@@ -143,6 +148,7 @@ def main():
             print("I understand orders for Help, Rename, Self Destruct, Beam me up, Launch Fighters, shoot and quit ")
         if orders.lower() == 'shoot':
             print("pew pew pew")
+            myShip.launchTorpedo()
         if orders.lower() == 'launch fighters':
             myShip.launchFighters()
 
