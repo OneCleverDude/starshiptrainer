@@ -1,70 +1,8 @@
 import string
 import time
-
-class Starship:
-    def __init__(self, shipname):
-        self.shipname = shipname
-        self.shields = "down"
-        self.fighters = "docked"
-        self.shiptype = "galaxy class heavy cruiser"
-        self.torpedoes = 3
-
-    def renameShip(self, shipname):
-        self.shipname = shipname
-        print ("Ship has been renamed to " + self.shipname)    
-    def launchFighters(self):
-        if self.fighters == "docked":
-            print("Launching fighters!")
-            self.fighters = "launched"
-        else:
-            print("No fighters are docked Commander.")
-    def showShip(self):
-        # This block has a lot of the code we've looked at.  Try to 
-        # see if you can understand how and why it makes the choices it does.
-        # 
-        # Why pick 20 to subtract from?  Then why 21 later?
-        # Are those the correct numbers?
-        # Why pick the integer division // instead of just a / ?
-        print("                   ___")
-        print("      ___....-----'---'-----....___")
-        if (len(self.shipname) > 0):
-            shipLine = " "
-            for x in range(20-(len(self.shipname)//2)):
-                shipLine = shipLine + "="
-            shipLine = shipLine + self.shipname
-            for x in range(21-(len(self.shipname)//2)):
-                shipLine = shipLine + "="
-            print(shipLine)
-        else:
-            print(" =========================================")
-        print("       ___'---..._______...---'___  ")
-        print("      (___)      _|_|_|_      (___)  ")
-        print("        \\____.-'_.---._'-.____//  ")
-        print("          cccc'.__'---'__.'cccc ")
-        print("                  ccccc")
-    def launchTorpedo(self):
-        if self.torpedoes > 0:
-            print("launch torpedo!")
-            self.torpedoes = self.torpedoes -1
-        else:
-            print("You are all out of torpedoes!  Go back to starbase and get more")
-
-class Player:
-    def __init__(self, playername):
-        self.playername = playername
-        self.currentrank = "lt."
-        self.fullrankandtitle = self.currentrank + " " + self.playername
-    
-    def promotePlayer(self):       
-        if self.currentrank == "cmdr.":
-            self.currentrank = "private"
-            print("busted!  You can't promote yourself that high.")
-        if self.currentrank == "lt. cmdr.":
-            self.currentrank = "cmdr."
-        if self.currentrank == "lt.":
-            self.currentrank = "lt. cmdr."
-        
-        self.fullrankandtitle = self.currentrank + " " + self.playername    
+from starship import Starship 
+from player import Player
+from starbase import Starbase
 
 def makeSomeScreenSpace(howmany):
     # this routine should be pretty easy to understand.  It basically clears out 6 lines.
@@ -96,11 +34,6 @@ def boom(displayName):
     print("       `-=#$%&%$#=-'")
     print("          | ;  :|")
     print(" _____.,-#%&$@%#&#~,._____")
-def transport(playerName):
-    if (playerName != "Cmdr. Kelly"):
-        print("omg transporter accident.  You are now part pig.")
-    else:
-        print("You are beamed up \n")
 def teddy():
     print("\n")
     print("Quit your crying!! Here's a Teddy Bear!!!")
@@ -132,10 +65,9 @@ def main():
     # This makes an object called myShip which is a instance of the Starship class above.
     #
     myShip = Starship(input("what is the name of your ship? "))
-    # myShip2 = Starship(input("what is the name of your other ship? "))
-    myShip3 = Starship("Jake's Ship")
     print("\n")
     orders = "take command"
+    deepSpaceNine = Starbase("Deep Space Nine")
 
     password = '12345'
     while orders.lower() != 'quit':
@@ -148,7 +80,7 @@ def main():
             #
             myShip.showShip()
         if orders.lower() == "beam me up":
-            transport(currentplayer.playername)
+            myShip.transport(currentplayer.playername)
         if (orders.lower() == "self destruct" or orders.lower() == 'quit'):
             boom(myShip.shipname)
             orders = 'quit'
@@ -166,7 +98,9 @@ def main():
         if orders.lower() == 'shoot':
             print("pew pew pew")
             myShip.launchTorpedo()
-           
+        if orders.lower() == "status":
+            myShip.showShip()
+
         if orders.lower() == "promote":
             currentplayer.promotePlayer()
         if orders.lower() == 'launch fighters':
