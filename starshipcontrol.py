@@ -1,5 +1,6 @@
 import string
 import time
+import random
 
 def showShip(displayName):
     
@@ -51,13 +52,32 @@ def boom():
 
 def teddy():
     print("\n")
-    print("Quit your crying!! Here's a Teddy Bear!!!")
+    print("Quit your crying!! Here's a couple Teddy Bears!!!")
     print("\n")
     print("     ,~~.,''''`'.~~.")
     print("    : {` .- _ -. '} ;")
     print("     `:   O(_)O   ;'")
     print("      ';  ._|_,  ;`")
     print("       '`-.\_/,.'`")
+    print("\n")
+    print("                  _     _")
+    print("                 ( \---/ )")
+    print("                  ) . . (")
+    print("____________,--._(___Y___)_,--.___________ ")
+    print("            `--'           `--'")
+
+# def subwaySandwich():
+#     print("                      88                                                     ")
+#     print("                      88                                                     ")
+#     print("                      88                                                     ")
+#     print(",adPPYba, 88       88 88,dPPYba,  8b      db      d8 ,adPPYYba, 8b       d8  ")
+#     print("I8[    "" 88       88 88P'    ""8a `8b    d88b    d8' ""     `Y8 `8b     d8'  ")
+#     print(" `""Y8ba,  88       88 88       d8  `8b  d8'`8b  d8'  ,adPPPPP88  `8b   d8'   ")
+#     print("aa    ]8I ""8a,   ,a88 88b,   ,a8""   `8bd8'  `8bd8'   88,    ,88   `8b,d8'    ")
+#     print("`"YbbdP"'  `"YbbdP'Y8 8Y"Ybbd8"'      YP      YP     `"8bbdP"Y8     Y88'     ")
+#     print("                                                                    d8'      ")
+#     print("                                                                   d8'       ")
+
 
 def countdown(t):
 
@@ -73,33 +93,58 @@ def countdown(t):
 
 def main():
     makeSomeScreenSpace(4)
+    shipName = ""
     playerName = input("I am ready to be relieved, Commander...? ")
     playerName = "Cmdr. " + playerName
-    print("Welcome to the bridge, " + playerName)
-    showShip("")
+    print("Welcome to the bridge, " + playerName + ". Here's your ship")
     print("\n")
-    print("Right now I can't do much of anything, can I?")
+    shipName = playerName
+    showShip(shipName)
+    print("\n")
+    print("We've named your ship after you. If you'd like to rename it type in, 'rename'.")
     orders = "take command"
-    password = '12345'
+    passcode = "12345"
+    orderUnderstood = 0
     while orders.lower() != 'quit':
         print("\n")
         orders = input("What are your orders " + playerName + " ")
-        if orders.lower() == "rename":
-            nameTheShip = input("maybe you want to rename the ship, " + playerName +"?")
-            if (nameTheShip.upper()[:1] == 'Y'):
-                shipName = input("what should the name of the ship be? ")
-                showShip(shipName)
-        if orders.lower() == "self destruct":
-            confirmation = input("Are you sure?")
-            if confirmation.upper()[:1] == 'Y':
-                # TODO add pw request
-                # Print("What is the Self Destruct")
-                # countdown function call
-                countdown(int(5))
-                orders = 'quit'
 
+        # Orders below - rename, show ship, self destruct, help, quit, etc..
+        if orders.lower() == "rename":
+            nameTheShip = input("Are you sure you want to rename the ship, " + playerName +"?")
+            if (nameTheShip.upper()[:1] == 'Y'):
+                shipName = input("What should the new name of the ship be? ")
+                showShip(shipName)
+            orderUnderstood == True
+        if orders.lower() == "show ship":
+            showShip(shipName)
+            orderUnderstood == True
+        if orders.lower() == "self destruct":
+            confirmation = input("Are you sure? ")
+            if confirmation.upper()[:1] == 'Y':
+                passcodeRequest = input("What is the Self Destruct code? ")
+                if passcodeRequest != passcode:
+                    print("Sorry that's an incorrect passcode.")
+                    continue
+                else:
+                    countdown(int(5))
+                    orders = 'quit'
+            else:
+                continue
+            orderUnderstood == True
         if orders.lower() == 'help':
-            print("I understand orders for Help, Rename, Self Destruct and quit ")
+            print("I understand orders for Help, Rename, Self Destruct and Quit ")
+            orderUnderstood == True
+        # if orders.lower() == 'subway' or 'sandwich':
+        #     print("Justin has made you a delicous Subway sandwich!! Here it is")
+        #     print("\n")
+        #     print("\n")
+        #     subwaySandwich()
+        #     print("\n")
+        #     print("\n")
+        #     orderUnderstood == True
+        if orderUnderstood == False:
+            print("I'm sorry, I do not understand that command. Ask for 'help' if you want a list of commands.")
 
 
 if __name__ == "__main__":
