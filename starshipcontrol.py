@@ -49,6 +49,23 @@ class Starship:
         else:
             print("You are all out of torpedoes!  Go back to starbase and get more")
 
+class Player:
+    def __init__(self, playername):
+        self.playername = playername
+        self.currentrank = "lt."
+        self.fullrankandtitle = self.currentrank + " " + self.playername
+    
+    def promotePlayer(self):       
+        if self.currentrank == "cmdr.":
+            self.currentrank = "private"
+            print("busted!  You can't promote yourself that high.")
+        if self.currentrank == "lt. cmdr.":
+            self.currentrank = "cmdr."
+        if self.currentrank == "lt.":
+            self.currentrank = "lt. cmdr."
+        
+        self.fullrankandtitle = self.currentrank + " " + self.playername    
+
 def makeSomeScreenSpace(howmany):
     # this routine should be pretty easy to understand.  It basically clears out 6 lines.
     # think about how you'd make this a piece of code that could take an argument so it would
@@ -107,14 +124,15 @@ def countdown(t):
 
 def main():
     makeSomeScreenSpace(4)
-    playerName = input("I am ready to be relieved, Commander...? ")
-    playerName = "Cmdr. " + playerName
-    print("Welcome to the bridge, " + playerName)
+
+    currentplayer = Player(input("I am ready to be relieved, ...? "))
+
+    print("Welcome to the bridge, " + currentplayer.fullrankandtitle)
     #
     # This makes an object called myShip which is a instance of the Starship class above.
     #
     myShip = Starship(input("what is the name of your ship? "))
-    myShip2 = Starship(input("what is the name of your other ship? "))
+    # myShip2 = Starship(input("what is the name of your other ship? "))
     myShip3 = Starship("Jake's Ship")
     print("\n")
     orders = "take command"
@@ -122,7 +140,7 @@ def main():
     password = '12345'
     while orders.lower() != 'quit':
         print("\n")
-        orders = input("What are your orders " + playerName + " ")
+        orders = input("What are your orders " + currentplayer.fullrankandtitle + " ")
         if orders.lower() == "rename":
             myShip.renameShip(input("what should the name of the ship be? "))
             #
@@ -130,10 +148,9 @@ def main():
             #
             myShip.showShip()
         if orders.lower() == "beam me up":
-            transport(playerName)
+            transport(currentplayer.playername)
         if (orders.lower() == "self destruct" or orders.lower() == 'quit'):
             boom(myShip.shipname)
-            print("whoops, blew up Jake's ship.")
             orders = 'quit'
         if orders.lower() == "self destruct":
             confirmation = input("Are you sure?")
@@ -149,6 +166,9 @@ def main():
         if orders.lower() == 'shoot':
             print("pew pew pew")
             myShip.launchTorpedo()
+           
+        if orders.lower() == "promote":
+            currentplayer.promotePlayer()
         if orders.lower() == 'launch fighters':
             myShip.launchFighters()
 
